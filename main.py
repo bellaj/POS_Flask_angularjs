@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, send_from_directory, request
 app = Flask(__name__)
 
 
@@ -41,12 +41,14 @@ def test2():
 	#return render_template('./files/style.css')
 
 @app.route('/')
-def customer():
+def index():
     return send_from_directory(".", "index.html")
 	
-@app.route('/customers')
-def index():
-    return send_from_directory("templates", "customers.html")
+@app.route('/customers', methods=['GET', 'POST'])
+def customers():
+	total = request.args.get('total')
+	return jsonify({'total': total})
+	#return send_from_directory("templates","customers.html")
 	
 
 

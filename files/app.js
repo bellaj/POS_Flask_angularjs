@@ -153,8 +153,9 @@ app.controller('PosController', function ($scope, $http) {
         $scope.order = [];
         $scope.totOrders += 1;*/
 		
-	$http.get('/api/v1/get_time').then(function(response) {
-	$scope.time = response.data.time;
+	$http.get('/customers?total='+$scope.getTotal().toFixed(2)).then(function(response) {
+	$scope.total = response.data.total;
+	console.log(response.data.total);
     });
 	}
     $scope.addNewItem = function (item) {
