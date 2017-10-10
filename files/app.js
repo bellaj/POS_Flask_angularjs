@@ -4,7 +4,7 @@
 
 var app = angular.module('myApp', []);
 
-app.controller('PosController', function ($scope) {
+app.controller('PosController', function ($scope, $http) {
 
     $scope.drinks = [{
         id: 0,
@@ -149,11 +149,14 @@ app.controller('PosController', function ($scope) {
     };
 
     $scope.checkout = function (index) {
-        alert($scope.getDate() + " - Order Number: " + ($scope.totOrders+1) + "\n\nOrder amount: $" + $scope.getTotal().toFixed(2) + "\n\nPayment received. Thanks.");
+        /*alert($scope.getDate() + " - Order Number: " + ($scope.totOrders+1) + "\n\nOrder amount: $" + $scope.getTotal().toFixed(2) + "\n\nPayment received. Thanks.");
         $scope.order = [];
-        $scope.totOrders += 1;
-    };
-
+        $scope.totOrders += 1;*/
+		
+	$http.get('/api/v1/get_time').then(function(response) {
+	$scope.time = response.data.time;
+    });
+	}
     $scope.addNewItem = function (item) {
         if (item.category === "Drinks") {
             item.id = $scope.drinks.length + $scope.foods.length

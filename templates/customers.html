@@ -1,0 +1,62 @@
+<html ng-app="App">
+    <head>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<style>
+
+	 .container {
+	     width: 50%;
+	 }
+	 h3 {
+	     border-bottom: 1px solid #ccc;
+	 }
+	</style>
+    </head>
+    <body>
+	    <div class="container" ng-controller="AppController">
+
+		    <h3>/api/v1/get_names</h3>
+		    <ul>
+			    <li ng-repeat="name in names">
+				    Hello {{name}}!
+			    </li>
+		    </ul>
+		    <h3>/api/v1/get_peoples</h3>
+		    <ul>
+			    <li ng-repeat="person in people">
+				    Hello {{person.name}}
+			    </li>
+		    </ul>
+
+		    <h3>/api/v1/get_time</h3>
+			<p>{{time}}</p>
+		    <button ng-click="get_time()">button</button>
+	    </div>
+
+	    <script>
+	    
+	    var app = angular.module('App', []);
+	    app.controller('AppController', function($scope, $http) {
+		    $scope.time = "Button...";
+		    
+		    // -------------------------------------------------------
+		   $http.get('/api/v1/get_names').then(function(response) {
+			    $scope.names = response.data.names;
+		    });
+
+		    // -------------------------------------------------------
+		    $http.get('/api/v1/get_people').then(function(response) {
+			    $scope.people = response.data.people;
+		    });
+
+		    $scope.get_time = function() {
+			    $http.get('/api/v1/get_time').then(function(response) {
+				    $scope.time = response.data.time;
+			    });			    
+		    }
+		    
+	    });
+	    </script>
+    </body>
+</html>
