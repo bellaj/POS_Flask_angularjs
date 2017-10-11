@@ -14,68 +14,68 @@ app.controller('PosController', function ($scope, $http) {
     {
         id: 1,
         name: "Sparkling Water",
-        price: "1.10",
+        price: "10",
     },
     {
         id: 2,
         name: "Espresso",
-        price: "1.20",
+        price: "12",
     },
     {
         id: 3,
         name: "Cappuccino",
-        price: "1.30",
+        price: "13",
     },
     {
         id: 4,
         name: "Tea",
-        price: "1.90",
+        price: "19",
     },
     {
         id: 5,
         name: "Hot Chocolate",
-        price: "2.10",
+        price: "21",
     },
     {
         id: 6,
         name: "Coke",
-        price: "2.00",
+        price: "20",
     },
     {
         id: 7,
         name: "Orange Juice",
-        price: "1.90",
+        price: "90",
     }];
 
     $scope.foods = [{
         id: 8,
         name: "Waffle",
-        price: "1.50",
+        price: "50",
     },
     {
         id: 9,
         name: "Brioche",
-        price: "1.30",
+        price: "130",
     },
     {
         id: 10,
         name: "Cheesecake",
-        price: "1.70",
+        price: "0",
     },
     {
         id: 11,
         name: "Sandwich",
-        price: "2.70",
+        price: "20",
     },
     {
         id: 12,
         name: "Donuts",
-        price: "1.90",
+        price: "190",
     },
     {
         id: 13,
         name: "Tortilla",
-        price: "1.90",
+        price: "19",
     }];
 
     $scope.order = [];
@@ -160,7 +160,8 @@ app.controller('PosController', function ($scope, $http) {
         $scope.totOrders += 1;
   }} );*/
 		//alert(receipt_h.blockNumber);
-	$http.get('/send?total='+$scope.getTotal().toFixed(2)).then(function(response) {
+	console.log($scope.getTotal());/*.toFixed(2));*/
+	$http.get('/send?total='+$scope.getTotal()).then(function(response) {
 	$scope.receipt = response.data.receipt;
 	alert('tx hash'+response.data.receipt);
 	console.log(response.data.receipt);
@@ -185,21 +186,3 @@ app.controller('PosController', function ($scope, $http) {
 });
 
 
-/******************************************************************
-var abi =[];
-var MyContract = web3.eth.contract(abi);
-
-// initiate contract for an address
-var myContractInstance = MyContract.at('0xc4abd0339eb8d57087278718986382264244252f');
-
-// call constant function
-var result = myContractInstance.myConstantMethod('myParam');
-console.log(result) // '0x25434534534'
-
-// send a transaction to a function
-myContractInstance.myStateChangingMethod('someParam1', 23, {value: 200, gas: 2000});
-
-// short hand style
-web3.eth.contract(abi).at(address).myAwesomeMethod(...);
-var myCallData = myContractInstance.myMethod.getData(param1 [, param2, ...]);
-*/
