@@ -152,7 +152,7 @@ app.controller('PosController', function ($scope, $http) {
         /*alert($scope.getDate() + " - Order Number: " + ($scope.totOrders+1) + "\n\nOrder amount: $" + $scope.getTotal().toFixed(2) + "\n\nPayment received. Thanks.");
         $scope.order = [];
         $scope.totOrders += 1;*/
-		var receipt_h = web3.eth.getTransactionReceipt('0x43a82bf7cd0b3e9edcdff2a47768b5f0c63c9444751834c95895f71822497d67', function(err, transactionHash) {
+		var receipt_h = web3.eth.getTransactionReceipt(index, function(err, transactionHash) {
   if (!err)
   {console.log(transactionHash.blockNumber); // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
 		alert("Transaction confirmed at block:" +transactionHash.blockNumber);
