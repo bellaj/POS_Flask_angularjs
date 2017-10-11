@@ -60,11 +60,11 @@ def web3():
 	
 @app.route('/send', methods=['GET', 'POST'])
 def send():
-
+	total = request.args.get('total')
 	contractAddress = '0xd5855dcce8933cea211fed171a31f19703a3f8be'
 	web3 = Web3(HTTPProvider('https://ropsten.infura.io/v2QCDR7v7cgH6fy0y171'))
 	abi= json.loads('[{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}]')
-	print(abi)
+ 
 	fContract = web3.eth.contract(abi,contractAddress)
 	print('call const',fContract.call({'from': '0xFed55B453dBb0589ec5433a9318C09f1766D7dAb'}).balanceOf('0xFed55B453dBb0589ec5433a9318C09f1766D7dAb'))
 	call_data = fContract.encodeABI('transfer',["0xa5Acc472597C1e1651270da9081Cc5a0b38258E3", 3333])
@@ -74,7 +74,7 @@ def send():
             gasprice=21000,
             startgas=100000,
             to='0xa5Acc472597C1e1651270da9081Cc5a0b38258E3',
-            value=12345,
+            value=total,
             data=call_data,
 	)
 	tx.sign('d2432061d3a6cab6a2f3f635c5dda4bb5c0b9c64285c2aa11d586402f66f0507')
@@ -83,7 +83,6 @@ def send():
 	print(raw_tx_hex)
 	hash=web3.eth.sendRawTransaction(raw_tx_hex)
 	print(hash)
-#	return jsonify({'receipts': hash})
 	return jsonify({'receipt': hash})
 
 

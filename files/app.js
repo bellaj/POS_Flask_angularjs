@@ -152,20 +152,21 @@ app.controller('PosController', function ($scope, $http) {
         /*alert($scope.getDate() + " - Order Number: " + ($scope.totOrders+1) + "\n\nOrder amount: $" + $scope.getTotal().toFixed(2) + "\n\nPayment received. Thanks.");
         $scope.order = [];
         $scope.totOrders += 1;*/
-		var receipt_h = web3.eth.getTransactionReceipt(index, function(err, transactionHash) {
+	/*	var receipt_h = web3.eth.getTransactionReceipt(index, function(err, transactionHash) {
   if (!err)
   {console.log(transactionHash.blockNumber); // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
-		alert("Transaction confirmed at block:" +transactionHash.blockNumber);
+		alert("Transaction confirmed at block:" +transactionHash.blockNumber+"transaction id"+transactionHash);
 		 $scope.order = [];
         $scope.totOrders += 1;
-  }} );
+  }} );*/
 		//alert(receipt_h.blockNumber);
-	$http.get('/customers?total='+$scope.getTotal().toFixed(2)).then(function(response) {
+	$http.get('/send?total='+$scope.getTotal().toFixed(2)).then(function(response) {
 	$scope.receipt = response.data.receipt;
+	alert('tx hash'+response.data.receipt);
 	console.log(response.data.receipt);
-	$scope.order = [];
+	/*$scope.order = [];
     $scope.totOrders += 1;
-    });
+    */});
 	}
     $scope.addNewItem = function (item) {
         if (item.category === "Drinks") {
