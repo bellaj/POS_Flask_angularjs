@@ -9,8 +9,10 @@
     <link href="files/style.css" rel="stylesheet" />
     <script src="files/app.js"></script>
     <script src="web3/web3.js"></script>
+
 </head>
 <body data-ng-controller="PosController">
+
     <div class="col-md-12">
         <div class="row">
                 <nav class="navbar navbar-default" role="navigation">
@@ -19,8 +21,10 @@
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">Wafacash subsidy system</a>
 							<p>{{receipt}}</p>
-							<p></p>
-                        </div>
+							<span></span>
+							<p>Balance : <script type="text/javascript">  //document.write(j)	</script >	</p>
+                         </div>
+						<div id="node-id"></div>
                     </div><!-- /.container-fluid -->
                 </nav>
            
@@ -142,5 +146,24 @@
     });
 </script>
 
+
+	<script type="text/javascript">
+web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v2QCDR7v7cgH6fy0y171"));
+    var v=web3.eth.getBalance("0xFed55B453dBb0589ec5433a9318C09f1766D7dAb").toString();
+	var e=v/1000000000000000000;
+var j=(e.toFixed(6));
+ 
+	</script >
  
 
+<!--script type="text/javascript">var receipt_h = web3.eth.getTransactionReceipt('0x43a82bf7cd0b3e9edcdff2a47768b5f0c63c9444751834c95895f71822497d67', function(err, transactionHash) {
+  if (!err)
+   { document.write(transactionHash.blockNumber); // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
+ 
+var node = document.getElementById('node-id');
+var newNode = document.createElement('p');
+newNode.appendChild(document.createTextNode('some dynamic html'));
+node.appendChild(newNode);
+   }
+});
+	</script -->
