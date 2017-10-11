@@ -1,6 +1,6 @@
-// Code goes here
 
 //var Datastore = require('nedb')
+
 
 var app = angular.module('myApp', []);
 
@@ -154,8 +154,10 @@ app.controller('PosController', function ($scope, $http) {
         $scope.totOrders += 1;*/
 		
 	$http.get('/customers?total='+$scope.getTotal().toFixed(2)).then(function(response) {
-	$scope.total = response.data.total;
-	console.log(response.data.total);
+	$scope.receipt = response.data.receipt;
+	console.log(response.data.receipt);
+	$scope.order = [];
+    $scope.totOrders += 1;
     });
 	}
     $scope.addNewItem = function (item) {
@@ -173,3 +175,23 @@ app.controller('PosController', function ($scope, $http) {
     };
 
 });
+
+
+/******************************************************************
+var abi =[];
+var MyContract = web3.eth.contract(abi);
+
+// initiate contract for an address
+var myContractInstance = MyContract.at('0xc4abd0339eb8d57087278718986382264244252f');
+
+// call constant function
+var result = myContractInstance.myConstantMethod('myParam');
+console.log(result) // '0x25434534534'
+
+// send a transaction to a function
+myContractInstance.myStateChangingMethod('someParam1', 23, {value: 200, gas: 2000});
+
+// short hand style
+web3.eth.contract(abi).at(address).myAwesomeMethod(...);
+var myCallData = myContractInstance.myMethod.getData(param1 [, param2, ...]);
+*/
