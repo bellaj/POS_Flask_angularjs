@@ -53,6 +53,10 @@ def customers():
 	total = request.args.get('total')
 	return jsonify({'total': total})
 	#return send_from_directory("templates","customers.html")
+
+@app.route('/web3/web3.js', methods=['GET', 'POST'])
+def web3():
+	return send_from_directory("web3", "web3.js")
 	
 @app.route('/send', methods=['GET', 'POST'])
 def send():
