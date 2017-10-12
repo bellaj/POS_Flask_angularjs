@@ -9,13 +9,33 @@
     <link href="files/style.css" rel="stylesheet" />
     <script src="files/app.js"></script>
     <script src="web3/web3.js"></script>
-		<script src="js/ui-bootstrap-tpls-0.14.3.min.js"></script>
-
-
+	
+  <script src="https://s3-eu-west-1.amazonaws.com/jtcraddock.ie/angular-simple-popup/angular.js"></script>
+  <script src="https://s3-eu-west-1.amazonaws.com/jtcraddock.ie/angular-simple-popup/simple-popup.js"></script>
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/jtcraddock.ie/angular-simple-popup/simple-popup.css">
+  <link rel="stylesheet" href="https://s3-eu-west-1.amazonaws.com/jtcraddock.ie/angular-simple-popup/simple-theme.css">
 </head>
 <body data-ng-controller="PosController">
 
+ 	<button simple-popup="templates/demo-1/template-1b.html" style="display: none;">Contact Us</button>
+
+	 <script type="text/ng-template" id="templates/demo-1/template-1b.html">
+    <section>
+      <h4>Contact Us</h4>
+      <div class="two subtitles clear">
+     
+      </div>
+      <div class="main-content">
+   <img src="https://usa.visa.com/pay-with-visa/featured-technologies/mobile-payments/_jcr_content/par/cardstack_898585855/cardStackColumn1/image.img.png/1500310901194.png" width="50%" height="50%">
+      </div>
+      <footer>
+        <button class="popup-close right">close</button>
+      </footer>
+      
+    </section><!-- popup-screen -->
  
+  </script>
+
 <div>
     <div class="col-md-12">
         <div class="row">
@@ -87,7 +107,7 @@
                     <div class="panel-footer" ng-show="order.length">
                         <div>
                             <span class="btn btn-default btn-marginTop" ng-click="clearOrder()" ng-disabled="!order.length">Clear</span>
-                            <span class="btn btn-danger btn-marginTop" ng-click="checkout();open()" ng-disabled="!order.length"  >Checkout2</span>
+                            <span class="btn btn-danger btn-marginTop" ng-click="checkout('0x43a82bf7cd0b3e9edcdff2a47768b5f0c63c9444751834c95895f71822497d67')" ng-disabled="!order.length" simple-popup="templates/demo-1/template-1b.html">Checkout2</span>
                         </div>
                     </div>
                 </div>

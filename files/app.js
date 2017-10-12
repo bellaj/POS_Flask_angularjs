@@ -2,9 +2,9 @@
 //var Datastore = require('nedb')
 
 
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['ui.bootstrap']);
 
-app.controller('PosController', function ($scope, $http) {
+app.controller('PosController', function ($scope, $http,$modal) {
 
     $scope.drinks = [{
         id: 0,
@@ -182,7 +182,19 @@ app.controller('PosController', function ($scope, $http) {
             $('#myTab a[href="#food"]').tab('show')
         }
     };
-
+	   $scope.open = function () {
+                var modalInstance = $modal.open({
+					controller: 'PopupCont',
+                    templateUrl: 'Popup.html',
+                });
+            };
+		 
 });
 
 
+       angular.module('myApp').controller('PopupCont', ['$scope','$modalInstance',function ($scope, $modalInstance) {
+            $scope.close = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        }]);
+  
