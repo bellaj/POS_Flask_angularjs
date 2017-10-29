@@ -35,14 +35,18 @@ def get_time():
     return jsonify({'time': time.time()})
 
 @app.route('/files/style.css', methods=['GET', 'POST'])
-def test():
+def style():
 	return send_from_directory("files", "style.css")
 	#return render_template('./files/style.css')
 
 @app.route('/files/app.js', methods=['GET', 'POST'])
-def test2():
+def appjs():
 	return send_from_directory("files", "app.js")
 	#return render_template('./files/style.css')
+
+@app.route('/js/ui-bootstrap-tpls-0.14.3.min.js', methods=['GET', 'POST'])
+def bootstrapjs():
+	return send_from_directory("js", "ui-bootstrap-tpls-0.14.3.min.js")
 
 @app.route('/')
 def index():

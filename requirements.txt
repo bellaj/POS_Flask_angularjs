@@ -1,3 +1,4 @@
 web3
 flask
 ethereum>=1.6.1,<2.0
+pyethapp
