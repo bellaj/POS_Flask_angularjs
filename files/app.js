@@ -218,7 +218,7 @@ var address_url="ethereum:"+"0xFed55B453dBb0589ec5433a9318C09f1766D7dAb"+"?value
 		templateUrl: 'templates/Popup.html',
       		resolve: {
          	qrurl: function () {
-   return address_url;
+  				 return address_url;
          			}
 }
                 });
@@ -230,7 +230,7 @@ var address_url="ethereum:"+"0xFed55B453dBb0589ec5433a9318C09f1766D7dAb"+"?value
        angular.module('myApp').controller('PopupC', ['$scope','$modalInstance','qrurl',function ($scope, $modalInstance,qrurl) {
 	$scope.QrUrl = qrurl;
 	$scope.close = function () {
-	$modalInstance.dismiss('cancel');
+		$modalInstance.dismiss('cancel');
             };
         }]);
   
