@@ -1,0 +1,27 @@
+<html>
+<head>
+    <script src="files/app.js"></script>
+</head>
+<body>
+<div class="modal-header">
+<h3 class="modal-title">Header</h3>
+</div>
+<div class="modal-body">
+ 
+{{QrUrl}}
+Veuillez compléter le paiement.
+<ul><li>Carte de paiement</li><li>Hardware wallet</li><li>scanner le Qr code ci-dessous </li></ul>
+<canvas id="qrcodec"></canvas>
+</div>
+<div class="modal-footer">
+<button class="btn btn-warning" type="button" ng-click="close()">Close</button>
+</div>
+<script>
+
+qrcodelib.toCanvas(document.getElementById('qrcodec'), '{{QrUrl}}', function (error) {
+    if (error) console.error(error)
+    console.log('qrcode successfully created');
+  });
+</script>
+</body>
+</html>

@@ -11,7 +11,8 @@
     <script src="web3/web3.js"></script>
 		<script src="js/ui-bootstrap-tpls-0.14.3.min.js"></script>
 
-
+    <!--script src="js/bundle.js"></script--> 
+<script src="node_modules/qrcode/build/qrcode.min.js"></script>
 </head>
 <body data-ng-controller="PosController">
 
@@ -23,11 +24,13 @@
                     <div class="container-fluid">
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="#">Wafacash subsidy system</a>
-							<p>{{receipt}}</p>
-							<span></span>
-							<p>Balance : <script type="text/javascript">  //document.write(j)	</script >	</p>
-                         </div>
+                        <a class="navbar-brand" href="#">Wafacash subsidy system</a>
+			<span></span>
+			<p>Balance : <script type="text/javascript"> /*document.write(j)*/ </script></p>
+                        </div>
+
+
+
 						<div id="node-id"></div>
                     </div><!-- /.container-fluid -->
                 </nav>
@@ -65,7 +68,7 @@
                                         <div class="label label-warning">{{item.price | currency:"USD$":0}}</div>
                                     </div>
                                     <div class="col-md-2 col-md-push-2">
-                                        <button class="btn btn-success btn-xs" ng-click="addToOrder(item,1)">
+                                        <button class="btn btn-success btn-xs" ng-click="addTonOrder(item,1)">
                                             <span class="glyphicon glyphicon-plus"></span>
                                         </button>
                                         <button class="btn btn-warning btn-xs" ng-click="removeOneEntity(item)">
@@ -139,12 +142,18 @@
             </div>
         </div>
     </div>
-	 
+
+
+<div   ng-hide="hideme">
+  
+<p>Trasnaction id : <a ng-href='https://ropsten.etherscan.io/tx/{{receipt}}'>{{receipt}}</a></p>
+</div> 
+
 
  </body>
 </html>	
 
-
+ 
 <script>
     $(document).ready(function () {
         $("#myTab a").click(function (e) {

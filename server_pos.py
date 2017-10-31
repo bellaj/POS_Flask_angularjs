@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from flask import Flask, jsonify, send_from_directory, request
+
 app = Flask(__name__)
 from web3 import Web3
 import json
@@ -51,6 +52,18 @@ def bootstrapjs():
 @app.route('/')
 def index():
     return send_from_directory(".", "index.html")
+
+@app.route('/templates/Popup.html')
+def popup():
+    return send_from_directory("templates", "Popup.html")
+
+@app.route('/node_modules/qrcode/build/qrcode.min.js')
+def qrcode():
+    return send_from_directory("node_modules/qrcode/build", "qrcode.min.js")
+
+@app.route('/js/bundle.js')
+def bundle():
+    return send_from_directory("js", "bundle.js")
 
 @app.route('/customers', methods=['GET', 'POST'])
 def customers():

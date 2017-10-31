@@ -1,4 +1,5 @@
 
+
 //var Datastore = require('nedb')
 
 
@@ -8,42 +9,42 @@ app.controller('PosController', function ($scope, $http,$modal) {
 
     $scope.drinks = [{
         id: 0,
-        name: "Still Water",
+        name: "Huile",
         price: "1",
     },
     {
         id: 1,
-        name: "Sparkling Water",
+        name: "Eau",
         price: "10",
     },
     {
         id: 2,
-        name: "Espresso",
+        name: "Sucre",
         price: "12",
     },
     {
         id: 3,
-        name: "Cappuccino",
+        name: "Farine",
         price: "13",
     },
     {
         id: 4,
-        name: "Tea",
+        name: "Thé",
         price: "19",
     },
     {
         id: 5,
-        name: "Hot Chocolate",
+        name: "Farine blé solide",
         price: "21",
     },
     {
         id: 6,
-        name: "Coke",
+        name: "Savon",
         price: "20",
     },
     {
         id: 7,
-        name: "Orange Juice",
+        name: "Jus",
         price: "90",
     }];
 
@@ -81,7 +82,7 @@ app.controller('PosController', function ($scope, $http,$modal) {
     $scope.order = [];
     $scope.new = {};
     $scope.totOrders = 0;
-
+	$scope.hideme=true;
     var url = window.location.protocol + "://" + window.location.host + "/" + window.location.pathname;
 
     $scope.getDate = function () {
@@ -152,22 +153,49 @@ app.controller('PosController', function ($scope, $http,$modal) {
         /*alert($scope.getDate() + " - Order Number: " + ($scope.totOrders+1) + "\n\nOrder amount: $" + $scope.getTotal().toFixed(2) + "\n\nPayment received. Thanks.");
         $scope.order = [];
         $scope.totOrders += 1;*/
-	/*	var receipt_h = web3.eth.getTransactionReceipt(index, function(err, transactionHash) {
+	/*	
+var receipt_h = web3.eth.getTransactionReceipt(index, function(err, transactionHash) {
   if (!err)
   {console.log(transactionHash.blockNumber); // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
 		alert("Transaction confirmed at block:" +transactionHash.blockNumber+"transaction id"+transactionHash);
 		 $scope.order = [];
         $scope.totOrders += 1;
   }} );*/
-		//alert(receipt_h.blockNumber);
+		// alert("transaction ID "+receipt_h.blockNumber);
+	
+
 	console.log($scope.getTotal());/*.toFixed(2));*/
 	$http.get('/send?total='+$scope.getTotal()).then(function(response) {
-	$scope.receipt = response.data.receipt;
-	alert('tx hash'+response.data.receipt);
-	console.log(response.data.receipt);
+$scope.hideme=false;	
+var resp_hash= response.data.receipt;
+$scope.receipt =resp_hash;
+
+	
+	//
+	//alert('transaction hash'+response.data.receipt);
+	
+
+/*
+var receipt_h = web3.eth.getTransactionReceipt(resp_hash, function(err, transactionHash) {
+
+if (!err)
+{
+alert("ts"+transactionHash);
+console.log("reshash"+resp_hash)
+console.log("number"+transactionHash.blockNumber); // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
+alert("Transaction confirmed at block:" +transactionHash.blockNumber+"transaction id"+transactionHash);
+$scope.order = [];
+$scope.totOrders += 1;
+  }
+else alert("error");
+} );
+
+	console.log(response.data.receipt);*/
 	/*$scope.order = [];
     $scope.totOrders += 1;
     */});
+
+
 	}
     $scope.addNewItem = function (item) {
         if (item.category === "Drinks") {
@@ -182,19 +210,27 @@ app.controller('PosController', function ($scope, $http,$modal) {
             $('#myTab a[href="#food"]').tab('show')
         }
     };
+
+var address_url="ethereum:"+"0xFed55B453dBb0589ec5433a9318C09f1766D7dAb"+"?value="+$scope.getTotal()+"?gas=2100";
 	   $scope.open = function () {
                 var modalInstance = $modal.open({
-					controller: 'PopupCont',
-                    templateUrl: 'Popup.html',
+		controller: 'PopupC',
+		templateUrl: 'templates/Popup.html',
+      		resolve: {
+         	qrurl: function () {
+   return address_url;
+         			}
+}
                 });
             };
 		 
 });
 
 
-       angular.module('myApp').controller('PopupCont', ['$scope','$modalInstance',function ($scope, $modalInstance) {
-            $scope.close = function () {
-                $modalInstance.dismiss('cancel');
+       angular.module('myApp').controller('PopupC', ['$scope','$modalInstance','qrurl',function ($scope, $modalInstance,qrurl) {
+	$scope.QrUrl = qrurl;
+	$scope.close = function () {
+	$modalInstance.dismiss('cancel');
             };
         }]);
   
